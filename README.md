@@ -68,3 +68,4 @@ Sound is implemented via a global `SoundProvider`:
 ### Install
 ```bash
 npm install
+npm run dev 
