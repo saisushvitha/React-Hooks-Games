@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* A tiny reset so Tailwind controls buttons/inputs */
+:root { color-scheme: dark; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 700px at 20% 0%, #2b2f77 0%, #0b0c16 55%, #070711 100%);
+  color: white;
+}
+
+/* optional: nicer selection */
+::selection { background: rgba(255,255,255,0.18); }
