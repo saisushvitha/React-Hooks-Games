@@ -1,73 +1,70 @@
-# React + TypeScript + Vite
+# React Hooks Games Dashboard (TypeScript + Tailwind)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A mini dashboard of small games built with **React + TypeScript** to demonstrate **React Hooks** in practical, fun projects — with a clean UI, lucide-react icons, and sound effects.
 
-Currently, two official plugins are available:
+> Goal: Learn hooks by building tiny games instead of boring demos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+##  Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Beautiful dashboard UI (sidebar + home cards + search)
+- Multiple mini-games (each in its own component)
+- Global settings:
+  - Difficulty (easy / medium / hard)
+  - Sound on/off (with icons)
+- Lucide icons for consistent UI
+- Sound effects (click / success / error)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+##  Hooks Used (No `useState`)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This repository intentionally avoids `useState` and uses:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- `useReducer` → game state management
+- `useEffect` → timers, intervals, cleanup, bot moves
+- `useRef` → timers, sound refs, “play once” flags
+- `useMemo` → derived values (winner, difficulty config, filtering)
+- `useCallback` → stable event handlers
+- `useContext` → global settings + sound provider
+- `useTransition` → smooth navigation when switching games
+- `useDeferredValue` → smooth filtering while typing search
+- `useId` → accessible input id (search)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+##  Games Included
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Reaction Timer**
+  - Click when the box turns green
+  - Hooks: `useEffect`, `useRef`, `useReducer`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Tic-Tac-Toe (vs Bot)**
+  - Player is X, bot plays O
+  - Hooks: `useReducer`, `useMemo`, `useEffect`, `useRef`
+
+- **Whack-a-Mole / Whack-a-Pig**
+  - Hit the active tile before it moves
+  - Hooks: `useEffect`, `useReducer`
+
+- **Key Sequence**
+  - Type the target string using keyboard events
+  - Hooks: `useEffect`, `useRef`, `useReducer`
+
+---
+
+##  Sound System
+
+Sound is implemented via a global `SoundProvider`:
+- Uses `useRef` to keep audio objects alive
+- Uses `useEffect` to initialize + unlock audio on first user click
+- Controlled by the global `Sound` toggle in settings
+
+---
+
+## 🚀 Getting Started
+
+### Install
+```bash
+npm install
